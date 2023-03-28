@@ -1,0 +1,24 @@
+module halfAdder4_TB();
+  reg [3:0] i_Tw;
+  reg [3:0] i_Tx;
+  wire [3:0] o_Tc;
+  wire [3:0] o_Ts;
+  
+halfAdder4 h1(
+  .i_w(i_Tw),
+  .i_x(i_Tx),
+  .o_c(o_Tc),
+  .o_s(o_Ts));
+  
+  initial
+  begin
+  //for (ii 0; ii<16; ii ii+1)
+    //i_Tw = 4'd ii
+  i_Tw=0;
+  i_Tx=0; 
+  $stop;
+  end
+  always #5 i_Tw=$urandom%16; 
+  always #10 i_Tx=$urandom%16;
+  
+ endmodule

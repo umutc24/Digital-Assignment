@@ -1,0 +1,54 @@
+module mooreSD(i_x, i_clk, i_reset, o_signal);
+  input i_x; //input bit/signal 
+  input i_clk, i_reset;
+  output reg o_signal;
+
+  parameter A = 3'b000;
+  parameter B = 3'b001;
+  parameter C = 3'b010;
+  parameter D = 3'b011;
+  parameter E = 3'b100;
+
+  reg [2:0] currentState; //present state
+  
+  reg [2:0] nextState; //next state  
+  
+  always @ (currentState, nextState)
+    begin
+	   case(currentState)
+		  A: if(i_x) nextState = B;
+		      else    nextState = A;
+				
+		  B: if(i_x) nextState = C;
+		      else    nextState = A;
+
+		  C: if(i_x) nextState = C;
+		      else    nextState = D;
+
+		  D: if(i_x) nextState = B;
+		      else    nextState = E;
+
+		  E: if(i_x) nextState = A;
+		      else    nextState = A;	
+	    
+      default nextState = 3'bxxx; //unused states
+      endcase		
+        
+		  if (currentState == E)
+		     o_signal = 1;
+		  else
+		     o_signal = 0;
+  
+     end
+	
+	always @ (posedge i_clk, posedge i_reset)
+	  if (i_reset)
+	    currentState <= A;
+	  else
+	    currentState <= nextState;
+	  
+endmodule
+  
+
+
+  

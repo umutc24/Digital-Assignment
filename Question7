@@ -1,0 +1,30 @@
+module moore3Ones(i_x, i_clk, i_reset, o_y);
+  input i_clk, i_reset, i_x;
+  output o_y;
+  
+  parameter idle = 3'b000;
+  parameter A = 3'b001;
+  parameter B = 3'b010;
+  parameter C = 3'b011;
+  
+  reg[2:0] state = idle;
+  
+  always @ (posedge i_clk or posedge i_reset) begin
+  if (i_reset)
+    state <= idle;
+  else 
+		case(state)
+		idle : if(i_x == 1) state <= A;
+				 else state <= idle;
+		A : if(i_x == 1) state <= B;
+			 else state <= idle;
+		B : if(i_x == 1) state <= C;
+			 else state <= idle;
+		C : if(i_x == 1) state <= C;
+			 else state <= idle;
+      endcase
+   end
+	
+	assign o_y = (state == C)? 1:0;
+
+endmodule

@@ -1,0 +1,52 @@
+/*testbench for 2-bit comparator
+     Umut Ceylan 2016223 */
+
+`timescale 1ns/1ns
+
+module comparatorTB();
+  reg [1:0]i_TA; //input A as 2-bit number
+  reg [1:0] i_TB; //input B as 2-bit number
+  wire o_TGT,o_TLT,o_TEQ; //outputs greater than(GT), less than(LT), and equal to(EQ)
+ comparatorTwo c1(
+  .i_A(i_TA),
+  .i_B(i_TB),
+  .o_GT(o_TGT),
+  .o_LT(o_TLT),
+  .o_EQ(o_TEQ));
+  
+  initial
+  begin
+    //00
+    i_TA = 2'b00; i_TB = 2'b00; #10;
+	i_TA = 2'b00; i_TB = 2'b01; #10;
+    i_TA = 2'b00; i_TB = 2'b10; #10;
+    i_TA = 2'b00; i_TB = 2'b11; #10;
+
+    //01
+    i_TA = 2'b01; i_TB = 2'b00; #10;
+	i_TA = 2'b01; i_TB = 2'b01; #10;
+    i_TA = 2'b01; i_TB = 2'b10; #10;
+    i_TA = 2'b01; i_TB = 2'b11; #10;
+ 
+	 //10
+    i_TA = 2'b10; i_TB = 2'b00; #10;
+	i_TA = 2'b10; i_TB = 2'b01; #10;
+    i_TA = 2'b10; i_TB = 2'b10; #10;
+    i_TA = 2'b10; i_TB = 2'b11; #10;
+	 
+	 //11
+    i_TA = 2'b11; i_TB = 2'b00; #10;
+	i_TA = 2'b11; i_TB = 2'b01; #10;
+    i_TA = 2'b11; i_TB = 2'b10; #10;
+    i_TA = 2'b11; i_TB = 2'b11; #10;
+
+	 $stop;
+	 end
+endmodule
+		  
+  
+  
+  
+  
+  
+  

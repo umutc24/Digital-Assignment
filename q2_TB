@@ -1,0 +1,24 @@
+module shiftRegister64_TB();
+  reg i_Tdata;
+  reg tclk, i_tenable;
+  wire [63:0] o_tout;
+  
+  shiftRegister64 s1(
+    .i_data(i_Tdata),
+    .clk(tclk),
+    .i_enable(i_tenable),
+    .o_data(o_tout));
+  
+  reg a;
+  initial begin
+  tclk = 0; //manually setting clock
+  i_tenable = 1; //enabling the register
+  //i_Tdata <=a;
+  
+  $stop;
+  end
+  always #50 tclk = ~tclk;  //50% duty cycle for 50ps
+  always #5 i_Tdata=$urandom%2; //assign a random 1 bit number to input
+  
+        
+endmodule
