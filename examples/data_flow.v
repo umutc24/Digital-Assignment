@@ -4,7 +4,7 @@ module comparatorTwo(i_A,i_B,o_GT,o_LT,o_EQ); //i_ Input signal o_ Output signal
   output o_GT,o_LT,o_EQ; //outputs greater than(GT), less than(LT), and equal to(EQ)
 
   // A>B condition generated from K-maps		
-  assign o_GT = (~i_A[1] & i_A[0] & ~i_B[1] & ~i_B[0]) |
+  assign o_GT = (~i_A[1] & i_A[0] & ~i_B[1] & ~i_B[0])ssc  |
                 (i_A[1] & i_A[0] & i_B[1] & ~i_B[0]) |
 					      (i_A[1]  & ~i_B[1] );
   // A=B condition generated from K-maps				 

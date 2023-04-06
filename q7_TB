@@ -1,38 +1,33 @@
-`timescale 1ns/1ps
+`timescale 1ns/1ps // timescale/time precision defined
 
-module moore3Ones_TB();
-  reg i_Tclk; 
-  reg i_Treset; 
-  reg i_Tx;
-  wire o_Ty;
+module moore3Ones_TB(); //testbench module
+  reg i_Tclk, i_Treset, i_Tx; // regs defined
+  wire o_Ty; // wire defined for output
+  integer i; //int i to loop through data_try
   
-  integer i;
-  
-moore3Ones moore3test1(
+moore3Ones moore3test1( //verilog module instantiated
   .i_clk(i_Tclk),
   .i_reset(i_Treset),
   .i_x(i_Tx),
   .o_y(o_Ty));
   
+  // random data to loop through
   reg[14:0] data_try = 15'b000_001_111_100_111;
-  
+  // clock defined 2ns
   always #2 i_Tclk = ~ i_Tclk;
-  
   initial
   begin
     i_Tclk = 0;
 	 i_Treset = 1;
 	 i_Tx = 0;
 	 i = 0;
-	 #5 i_Treset = 0;
+	 #1 i_Treset = 0;
 	 
 	 for (i=0; i<15; i=i+1) begin
+	   // loop through data_try 
 	   i_Tx = data_try[i];
-	   #5;
-		
+	   #1;		
 	end
-	$finish;
-	
+	$finish;	
 end
-
 endmodule
